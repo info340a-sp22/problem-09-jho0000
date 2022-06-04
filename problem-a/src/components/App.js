@@ -48,7 +48,7 @@ function App(props) {
         <Routes>
           <Route path="/" element={
             <> {/* Search Page */}
-              <AlbumSearchForm />
+              <AlbumSearchForm searchCallback={fetchAlbumList} isWaiting={isSearching}/>
               <AlbumList albums={albumData} />
             </>
           } />
