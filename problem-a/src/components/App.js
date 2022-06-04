@@ -12,6 +12,24 @@ const ALBUM_QUERY_TEMPLATE = "https://itunes.apple.com/search?limit=25&term={sea
 function App(props) {
   const [albumData, setAlbumData] = useState([]);
   const [alertMessage, setAlertMessage] = useState(null);
+  const [isSearching, setSearching] = useState(false);
+
+  function fetchAlbumList(searchTerm) { 
+    setSearching(true);
+    fetch(ALBUM_QUERY_TEMPLATE.replace('{searchTerm}', searchTerm))
+      .then((res) => res.json())
+      .then((data) => {
+        if(data.results.length === 0) {
+          setAlertMessage("No results found.");
+        } else {
+          setAlbumData(data.results);
+        }
+      })
+      .catch((error) => {
+        setAlertMessage(error.message);
+      })
+      .then(() => {setSearching(false)});
+  }
 
   return (
     <div className="container">

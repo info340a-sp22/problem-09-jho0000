@@ -6,14 +6,14 @@ import { faSpinner, faMusic } from '@fortawesome/free-solid-svg-icons'
 
 export default function AlbumSearchForm({searchCallback, isWaiting}) {
   const [queryText, setQueryText] = useState('');
-
   const handleChange = (event) => {
     setQueryText(event.target.value);
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    const urlEncoded = encodeURIComponent(queryText);
+    searchCallback(urlEncoded);
   }
 
   return (
